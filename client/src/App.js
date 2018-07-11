@@ -4,6 +4,9 @@ import "./App.css";
 import RegForm from "./Components/RegForm"
 import LoginForm from "./Components/LoginForm"
 import { Container, Row, Col } from 'reactstrap';
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom"
+import Profile from "./Pages/Profile";
+
 
 class App extends Component {
   render() {
@@ -25,7 +28,13 @@ class App extends Component {
           </Col>
         </Row>
       </Container>
-     
+      
+      <Router>
+        <Switch>
+        <Route exact path="/profile" render={() => (true === true ? <Profile/> : <Profile/>)} />
+        </Switch>
+      </Router>  
+  
       </div>
     );
   }

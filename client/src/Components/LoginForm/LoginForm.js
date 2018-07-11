@@ -50,14 +50,6 @@ class LoginForm extends Component {
             }
            
         })
-    
-        // API.createUser(this.state).then((result) => {
-        //   console.log(result.status); 
-        //   if(result.status === 200){
-        //     alert("welcome")
-        //     //Redirect('/profile');
-        //   }
-        // });
     };
 
     render(){

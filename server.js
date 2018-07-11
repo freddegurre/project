@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
+var session = require('express-session');
 const PORT = process.env.PORT || 3001;
 const app = express();
 
@@ -23,6 +24,7 @@ mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/socialize",
 );
 
+app.use(session({secret: "343430939043jfef", resave:false, saveUninitialized:true}));
 
 require("./routes/appRoutes.js")(app);
 

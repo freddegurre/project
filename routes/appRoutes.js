@@ -8,9 +8,19 @@ module.exports = function (app) {
         db.Profile.create({
             firstName: req.body.firstName, 
             lastName: req.body.lastName, 
-            password: req.body.password
+            password: req.body.password, 
+            token: "t " + Math.random()
         }).then(function (data){
+            req.session.user ={
+                auth: true, 
+                id: data._id, 
+                firstName: data.firstName, 
+                lastName: data.lastName, 
+            }
+            console.log("this is session", req.session.user)
             res.send(data); 
+        }).catch(function(err){
+            res.send(err);
         })
     }); 
 
@@ -22,6 +32,12 @@ module.exports = function (app) {
                 res.send(false)
             }
             else if (data[0].firstName === req.body.firstName && data[0].password === req.body.password){
+                req.session.user = {
+                    auth: true, 
+                    id: data._id, 
+                    firstName: data.firstName, 
+                    lastName: data.lastName 
+                }
                 res.send(true)
             }
             else{
@@ -30,4 +46,16 @@ module.exports = function (app) {
         })
 
     })
+
+    app.get("/api/user", function (req, res) {
+        var id = req.session.user.id
+        var o_id = new ObjectId(id);
+        db.Profile.findOne({ _id: o_id }).then(function (result) {
+            console.log("this is user data", result); 
+            res.send(result);
+        })
+    })
+
+
+
 }
