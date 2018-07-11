@@ -40,7 +40,15 @@ class LoginForm extends Component {
         });
 
         API.loginUser(this.state).then((result) => {
-            console.log(result); 
+            console.log(result.data);
+            if (result.data === true) {
+                alert("you are loged in")
+                //Redirect('/profile');
+            }
+            else {
+                alert("Wrong user name and or password")
+            }
+           
         })
     
         // API.createUser(this.state).then((result) => {

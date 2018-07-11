@@ -16,5 +16,18 @@ module.exports = function (app) {
 
     app.post("/api/login", function (req, res){
         console.log("this is request to login", req.body)
+        db.Profile.find({firstName: req.body.firstName}).then(function (data){
+            console.log(data);
+            if (data.length === 0){
+                res.send(false)
+            }
+            else if (data[0].firstName === req.body.firstName && data[0].password === req.body.password){
+                res.send(true)
+            }
+            else{
+                res.send(false)
+            }
+        })
+
     })
 }
