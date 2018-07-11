@@ -12,5 +12,9 @@ module.exports = function (app) {
         }).then(function (data){
             res.send(data); 
         })
+    }); 
+
+    app.post("/api/login", function (req, res){
+        console.log("this is request to login", req.body)
     })
 }

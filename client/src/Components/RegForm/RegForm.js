@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./RegForm.css";
 import API from "../../Utils/API.js"
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+
 
 class RegForm extends Component {
   // Setting the component's initial state
@@ -59,33 +61,22 @@ class RegForm extends Component {
     // Notice how each input has a `value`, `name`, and `onChange` prop
     return (
       <div>
-        <p>
-          Hello {this.state.firstName} {this.state.lastName}
-        </p>
-        <form className="form">
-          <input
-            value={this.state.firstName}
-            name="firstName"
-            onChange={this.handleInputChange}
-            type="text"
-            placeholder="First Name"
-          />
-          <input
-            value={this.state.lastName}
-            name="lastName"
-            onChange={this.handleInputChange}
-            type="text"
-            placeholder="Last Name"
-          />
-          <input
-            value={this.state.password}
-            name="password"
-            onChange={this.handleInputChange}
-            type="password"
-            placeholder="Password"
-          />
-          <button onClick={this.handleFormSubmit}>Submit</button>
-        </form>
+            <p>
+              Hello {this.state.firstName} {this.state.lastName}
+            </p>
+            <Form className="form">
+              <FormGroup>
+                <Label for="firstName">First Name</Label>
+                <Input type="text" value={this.state.firstName} name="firstName" onChange={this.handleInputChange} placeholder="First Name" />
+                
+                <Label for="lastName">Last Name</Label>
+                <Input type="text" value={this.state.lastName} name="lastName" onChange={this.handleInputChange} placeholder="Last Name" />
+
+                <Label for="password">Password</Label>
+                <Input type="password" value={this.state.password} name="password" onChange={this.handleInputChange} placeholder="password" />
+              </FormGroup>
+              <Button onClick={this.handleFormSubmit}> Submit </Button>
+            </Form>
       </div>
     );
   }

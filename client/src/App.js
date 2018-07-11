@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import RegForm from "./Components/RegForm"
+import LoginForm from "./Components/LoginForm"
+import { Container, Row, Col } from 'reactstrap';
 
 class App extends Component {
   render() {
@@ -13,7 +15,17 @@ class App extends Component {
           <h2>Welcome to socialize</h2>
         </div>
       </div>
-      <RegForm />
+      <Container>
+        <Row>
+          <Col md="6"> 
+            <RegForm />
+          </Col>
+          <Col md="6">
+            <LoginForm />
+          </Col>
+        </Row>
+      </Container>
+     
       </div>
     );
   }
