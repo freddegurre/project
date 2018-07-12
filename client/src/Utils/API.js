@@ -10,4 +10,7 @@ export default {
     getUserData: function () {
         return axios.get('/api/user')
     },
+    checkIfsession: function (){
+        return axios.get("/api/session");
+    },
 }

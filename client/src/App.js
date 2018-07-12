@@ -1,37 +1,45 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import RegForm from "./Components/RegForm"
-import LoginForm from "./Components/LoginForm"
-import { Container, Row, Col } from 'reactstrap';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom"
 import Profile from "./Pages/Profile";
+import Home from "./Pages/Home";
+import API from "./Utils/API"
 
 
 class App extends Component {
+
+      state = {
+        session: false,
+        firstName: "", 
+        lastName: "",
+        id: ""
+      };
+
+      componentDidMount(){
+        this.isLoggedIn(); 
+      }
+
+      isLoggedIn = () => {
+        API.checkIfsession().then(res =>{
+          console.log("this is res.data when check session" , res.data); 
+          if (res.data.auth === true){
+          this.setState({session: true, 
+            firstName: res.data.firstName, 
+            lastName: res.data.lastName, 
+            id: res.data.id,
+            })
+          }
+        })
+      };
+
   render() {
     return (
+    
       <div>
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to socialize</h2>
-        </div>
-      </div>
-      <Container>
-        <Row>
-          <Col md="6"> 
-            <RegForm />
-          </Col>
-          <Col md="6">
-            <LoginForm />
-          </Col>
-        </Row>
-      </Container>
-      
       <Router>
         <Switch>
-        <Route exact path="/profile" render={() => (true === true ? <Profile/> : <Profile/>)} />
+        <Route exact path="/" render={() => (this.state.session === true ? <Profile/> : <Home/>)} />
+        <Route exact path="/profile" render={() => (this.state.session === true ? <Profile/> : <Home/>)} />
         </Switch>
       </Router>  
   

@@ -23,7 +23,7 @@ module.exports = function (app) {
             res.send(err);
         })
     }); 
-
+    //login user 
     app.post("/api/login", function (req, res){
         console.log("this is request to login", req.body)
         db.Profile.find({firstName: req.body.firstName}).then(function (data){
@@ -46,7 +46,7 @@ module.exports = function (app) {
         })
 
     })
-
+    //get user info
     app.get("/api/user", function (req, res) {
         var id = req.session.user.id
         var o_id = new ObjectId(id);
@@ -54,6 +54,16 @@ module.exports = function (app) {
             console.log("this is user data", result); 
             res.send(result);
         })
+    })
+
+    // check if session
+    app.get("/api/session", function (req, res) {
+        if (req.session.user) {
+            res.send(req.session.user);
+        }
+        if (!req.session.user) {
+            res.send(false)
+        }
     })
 
 
