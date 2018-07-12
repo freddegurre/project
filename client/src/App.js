@@ -9,10 +9,7 @@ import API from "./Utils/API"
 class App extends Component {
 
       state = {
-        session: false,
-        firstName: "", 
-        lastName: "",
-        id: ""
+        session: false
       };
 
       componentDidMount(){
@@ -22,12 +19,11 @@ class App extends Component {
       isLoggedIn = () => {
         API.checkIfsession().then(res =>{
           console.log("this is res.data when check session" , res.data); 
+          console.log("this is state ", this.state)
           if (res.data.auth === true){
           this.setState({session: true, 
-            firstName: res.data.firstName, 
-            lastName: res.data.lastName, 
-            id: res.data.id,
             })
+          
           }
         })
       };

@@ -1,4 +1,5 @@
 var db = require("../models");
+var ObjectId = require('mongodb').ObjectId;
 
 
 module.exports = function (app) {
@@ -34,9 +35,9 @@ module.exports = function (app) {
             else if (data[0].firstName === req.body.firstName && data[0].password === req.body.password){
                 req.session.user = {
                     auth: true, 
-                    id: data._id, 
-                    firstName: data.firstName, 
-                    lastName: data.lastName 
+                    id: data[0]._id, 
+                    firstName: data[0].firstName, 
+                    lastName: data[0].lastName 
                 }
                 res.send(true)
             }
@@ -48,10 +49,11 @@ module.exports = function (app) {
     })
     //get user info
     app.get("/api/user", function (req, res) {
+        //console.log(req); 
         var id = req.session.user.id
         var o_id = new ObjectId(id);
+        console.log(id, o_id); 
         db.Profile.findOne({ _id: o_id }).then(function (result) {
-            console.log("this is user data", result); 
             res.send(result);
         })
     })

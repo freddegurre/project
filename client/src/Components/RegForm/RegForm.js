@@ -3,6 +3,9 @@ import "./RegForm.css";
 import API from "../../Utils/API.js"
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
+function Redirect(where) {
+  window.location = where;
+}
 
 class RegForm extends Component {
   // Setting the component's initial state
@@ -51,7 +54,7 @@ class RegForm extends Component {
       console.log(result.status); 
       if(result.status === 200){
         alert("welcome")
-        //Redirect('/profile');
+        Redirect('/profile');
       }
     });
 

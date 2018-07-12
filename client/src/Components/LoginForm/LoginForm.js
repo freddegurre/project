@@ -3,6 +3,10 @@ import "./LoginForm.css";
 import API from "../../Utils/API.js"
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
+function Redirect(where) {
+    window.location = where;
+}
+
 class LoginForm extends Component {
     //Setting the component initial state
     state = {
@@ -24,7 +28,7 @@ class LoginForm extends Component {
     handleFormSubmit = event => {
         // Preventing the default behavior of the form submit (which is to refresh the page)
         event.preventDefault();
-        console.log(" this is state ", this.state)
+        console.log(" this is state on loginform ", this.state)
         if (!this.state.firstName || !this.state.password) {
           alert("Fill out your first and password please!");
         } else if (this.state.password.length < 6) {
@@ -43,7 +47,7 @@ class LoginForm extends Component {
             console.log(result.data);
             if (result.data === true) {
                 alert("you are loged in")
-                //Redirect('/profile');
+                Redirect('/profile');
             }
             else {
                 alert("Wrong user name and or password")
