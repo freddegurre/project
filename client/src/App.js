@@ -3,7 +3,9 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom"
 import Profile from "./Pages/Profile";
 import Home from "./Pages/Home";
+import Events from "./Pages/Events"
 import API from "./Utils/API"
+import NavBar from "./Components/NavBar"
 
 
 class App extends Component {
@@ -31,11 +33,13 @@ class App extends Component {
   render() {
     return (
     
-      <div>
+      <div> 
+        <NavBar/>
       <Router>
         <Switch>
         <Route exact path="/" render={() => (this.state.session === true ? <Profile/> : <Home/>)} />
         <Route exact path="/profile" render={() => (this.state.session === true ? <Profile/> : <Home/>)} />
+        <Route exact path="/events" render={() => (this.state.session === true ? <Events/> : <Home/>)} />
         </Switch>
       </Router>  
   

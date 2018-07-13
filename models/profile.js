@@ -14,6 +14,10 @@ const profileSchema = new Schema ({
     token: { 
         type: String 
     },
+    myEvents: [{
+        type: Schema.Types.ObjectId,
+        ref: "Events"
+      }],
     
 }); 
 

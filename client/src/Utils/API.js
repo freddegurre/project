@@ -13,4 +13,7 @@ export default {
     checkIfsession: function (){
         return axios.get("/api/session");
     },
+    newEvent: function(eventData){
+        return axios.post("/api/newEvent", eventData); 
+    }
 }

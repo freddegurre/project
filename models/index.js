@@ -1,3 +1,4 @@
 module.exports = {
-    Profile: require("./profile")
+    Profile: require("./profile"),
+    Events: require("./events")
   };

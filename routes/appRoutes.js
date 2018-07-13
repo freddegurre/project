@@ -48,11 +48,9 @@ module.exports = function (app) {
 
     })
     //get user info
-    app.get("/api/user", function (req, res) {
-        //console.log(req); 
+    app.get("/api/user", function (req, res) { 
         var id = req.session.user.id
         var o_id = new ObjectId(id);
-        console.log(id, o_id); 
         db.Profile.findOne({ _id: o_id }).then(function (result) {
             res.send(result);
         })
@@ -68,6 +66,22 @@ module.exports = function (app) {
         }
     })
 
-
+    //Create new event
+    app.post("/api/newEvent", function (req, res){
+        db.Events.create({
+            eventName: req.body.eventName,
+            eventDetails: req.body.eventDetails, 
+            eventDate: req.body.eventDate,
+            eventMaxPpl: req.body.eventMaxPpl,
+            eventLocation: req.body.eventLocation
+        }).then(function(data){
+            db.Profile.findOneAndUpdate({ _id: req.session.user.id}, 
+                     { $push: { myEvents: data._id} }, {new: true}).then(function (eventData){
+                         res.json(eventData)
+                     })      
+        }).catch(function (err) {
+                    res.json(err);
+        }); 
+    })
 
 }
