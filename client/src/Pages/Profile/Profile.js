@@ -1,12 +1,14 @@
 import React, { Component }from "react";
 import ProfileCard from "../../Components/ProfileCard";
+import EventCard from "../../Components/EventCard"; 
 import API from '../../Utils/API.js'
 import { Container, Row, Col } from 'reactstrap';
 
 class Profile extends Component {
     
     state = {
-            user: ""
+            user: "", 
+            myEvents: []
         
         };
 
@@ -16,9 +18,9 @@ class Profile extends Component {
 
     loadUser = () => {
         API.getUserData().then((result) => {
+            console.log(result.data); 
             //console.log("this is get user data result when loading profile page", result); 
-            this.setState({user: result.data})
-            console.log("this is state when profile is loaded ", this.state.user)
+            this.setState({user: result.data, myEvents: result.data.myEvents})
         })
     }
 
@@ -27,10 +29,23 @@ class Profile extends Component {
             <Container>
                 <Row>
                     <Col md="6"> 
-                        <ProfileCard user={this.state.user}/>
+                        <ProfileCard firstName={this.state.user.firstName}
+                        lastName={this.state.user.lastName}/>
                     </Col>
                     <Col md="6"> 
-                        <p>My events</p>
+                        {this.state.myEvents.map(events => {
+                            return (
+                                <EventCard
+                                key={events.id}
+                                name={events.eventName}
+                                details={events.eventDetails}
+                                date={events.eventDate}
+                                location={events.eventLocation}
+                                maxPpl={events.eventMaxppl}
+                                eventId={events.id}
+                                /> 
+                            )
+                        })}
                     </Col>
                 </Row>
             </Container>

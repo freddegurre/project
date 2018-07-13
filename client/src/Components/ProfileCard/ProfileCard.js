@@ -9,8 +9,8 @@ const ProfileCard = (props) => {
             <Card>
                 <CardHeader>Profile</CardHeader>
                 <CardBody>
-                    <CardTitle> {props.user.firstName} </CardTitle>
-                    <CardText>{props.user.lastName}</CardText>
+                    <CardTitle> {props.firstName} </CardTitle>
+                    <CardText>{props.lastName}</CardText>
                     <Button>Edit</Button>
                 </CardBody>
             </Card>

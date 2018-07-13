@@ -16,7 +16,8 @@ module.exports = function (app) {
                 auth: true, 
                 id: data._id, 
                 firstName: data.firstName, 
-                lastName: data.lastName, 
+                lastName: data.lastName,
+                myEvents: data.myEvents 
             }
             console.log("this is session", req.session.user)
             res.send(data); 
@@ -37,7 +38,9 @@ module.exports = function (app) {
                     auth: true, 
                     id: data[0]._id, 
                     firstName: data[0].firstName, 
-                    lastName: data[0].lastName 
+                    lastName: data[0].lastName,
+                    myEvents: data[0].myEvents, 
+
                 }
                 res.send(true)
             }
@@ -51,7 +54,7 @@ module.exports = function (app) {
     app.get("/api/user", function (req, res) { 
         var id = req.session.user.id
         var o_id = new ObjectId(id);
-        db.Profile.findOne({ _id: o_id }).then(function (result) {
+        db.Profile.findOne({ _id: o_id }).populate("myEvents").then(function (result) {
             res.send(result);
         })
     })
