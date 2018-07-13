@@ -19,7 +19,6 @@ class Profile extends Component {
     loadUser = () => {
         API.getUserData().then((result) => {
             console.log(result.data); 
-            //console.log("this is get user data result when loading profile page", result); 
             this.setState({user: result.data, myEvents: result.data.myEvents})
         })
     }

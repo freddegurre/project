@@ -38,7 +38,7 @@ class NavBar extends React.Component {
                 <NavLink href="/profile">Profile</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">Some link</NavLink>
+                <NavLink href="/events">Events</NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>

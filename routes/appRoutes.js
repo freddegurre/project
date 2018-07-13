@@ -5,12 +5,11 @@ var ObjectId = require('mongodb').ObjectId;
 module.exports = function (app) {
     //Create new user
     app.post("/api/newUser", function (req, res){
-        console.log("this is request", req.body)
         db.Profile.create({
             firstName: req.body.firstName, 
             lastName: req.body.lastName, 
             password: req.body.password, 
-            token: "t " + Math.random()
+            token: "t" + Math.random()
         }).then(function (data){
             req.session.user ={
                 auth: true, 
@@ -19,7 +18,6 @@ module.exports = function (app) {
                 lastName: data.lastName,
                 myEvents: data.myEvents 
             }
-            console.log("this is session", req.session.user)
             res.send(data); 
         }).catch(function(err){
             res.send(err);
@@ -27,7 +25,6 @@ module.exports = function (app) {
     }); 
     //login user 
     app.post("/api/login", function (req, res){
-        console.log("this is request to login", req.body)
         db.Profile.find({firstName: req.body.firstName}).then(function (data){
             console.log(data);
             if (data.length === 0){
@@ -40,7 +37,6 @@ module.exports = function (app) {
                     firstName: data[0].firstName, 
                     lastName: data[0].lastName,
                     myEvents: data[0].myEvents, 
-
                 }
                 res.send(true)
             }
@@ -85,6 +81,13 @@ module.exports = function (app) {
         }).catch(function (err) {
                     res.json(err);
         }); 
+    })
+
+    //all events
+    app.get("/api/allEvents", function (req, res){
+        db.Events.find({}).then(function(result){
+            res.send(result); 
+        })
     })
 
 }

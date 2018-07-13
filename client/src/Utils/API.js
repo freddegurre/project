@@ -15,5 +15,8 @@ export default {
     },
     newEvent: function(eventData){
         return axios.post("/api/newEvent", eventData); 
+    },
+    allEvents: function(){
+        return axios.get("/api/allEvents"); 
     }
 }
