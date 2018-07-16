@@ -21,7 +21,15 @@ const eventsSchema = new Schema({
     eventMaxPpl: {
       type: String,
        //required: true 
-    }
+    },
+    eventOwner: {
+      type: Schema.Types.ObjectId,
+        ref: "Profile"
+    },
+    participants: [{
+      type: Schema.Types.ObjectId,
+      ref: "Profile"
+    }],
   });
   
   const Events = mongoose.model("Events", eventsSchema);

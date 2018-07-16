@@ -26,7 +26,6 @@ module.exports = function (app) {
     //login user 
     app.post("/api/login", function (req, res){
         db.Profile.find({firstName: req.body.firstName}).then(function (data){
-            console.log(data);
             if (data.length === 0){
                 res.send(false)
             }
@@ -50,7 +49,8 @@ module.exports = function (app) {
     app.get("/api/user", function (req, res) { 
         var id = req.session.user.id
         var o_id = new ObjectId(id);
-        db.Profile.findOne({ _id: o_id }).populate("myEvents").then(function (result) {
+        db.Profile.findOne({ _id: o_id }).populate("myEvents").populate("attendingEvents").then(function (result) {
+            console.log(result); 
             res.send(result);
         })
     })
@@ -72,7 +72,8 @@ module.exports = function (app) {
             eventDetails: req.body.eventDetails, 
             eventDate: req.body.eventDate,
             eventMaxPpl: req.body.eventMaxPpl,
-            eventLocation: req.body.eventLocation
+            eventLocation: req.body.eventLocation, 
+            eventOwner: req.session.user.id
         }).then(function(data){
             db.Profile.findOneAndUpdate({ _id: req.session.user.id}, 
                      { $push: { myEvents: data._id} }, {new: true}).then(function (eventData){
@@ -97,21 +98,18 @@ module.exports = function (app) {
         })
     })
 
+    //Join event
     app.put("/api/joinEvent", function (req, res){
-        console.log("this should be user that wants to add", req.session.user.id); 
-        console.log("this should be the event that they want to add", req.body.eventID);
-        db.Profile.findByIdAndUpdate({_id: req.session.user.id}, { $push: { attendingEvents : req.body.eventID } }, {new : true}).then(result => {res.json(result)})
+        //add event id to users profile attendingEvents
+        db.Profile.findByIdAndUpdate({_id: req.session.user.id}, 
+            { $push: { attendingEvents : req.body.eventID } },
+             {new : true}).then(function (data){
+                 //add user id to event participants
+                db.Events.findByIdAndUpdate({_id:req.body.eventID}, 
+                    { $push: { participants : req.session.user.id } }, 
+                        {new: true}).then(result => {res.json(result);
+                })    
+            })
     })
-
-    // //Add Pack Member   
-    // app.put("/api/addpack/", function (req, res) {
-    //     db.Profile.findOneAndUpdate({
-    //         _id: req.session.user.id
-    //     }, { $push: { myPack: req.body.username } }, { new: true })
-    //         .then(data => {
-    //             res.json(data);
-    //         })
-    // });
-
 }
 
