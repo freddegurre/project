@@ -18,6 +18,10 @@ const profileSchema = new Schema ({
         type: Schema.Types.ObjectId,
         ref: "Events"
       }],
+    attendingEvents: [{
+        type: Schema.Types.ObjectId,
+        ref: "Events"
+      }],
     
 }); 
 

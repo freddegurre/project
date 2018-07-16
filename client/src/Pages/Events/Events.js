@@ -22,6 +22,14 @@ class Events extends Component {
         })
     }
 
+    joinEvent = (data) => {
+        console.log("kliiick", data);
+        var joiningEvent = {eventID : data}
+        API.joinEvent(joiningEvent).then((result) => {
+           alert("you joined" , result)
+        })
+    }
+
     render = () => {
         return (
             <Container>
@@ -39,10 +47,11 @@ class Events extends Component {
                             date={events.eventDate}
                             location={events.eventLocation}
                             maxPpl={events.eventMaxppl}
-                            eventId={events._id}
+                            eventid={events._id}
+                            join={() => this.joinEvent(events._id)}
                             />
                         )
-                    })}    
+                    })}   
                     </Col>
                 </Row>
             </Container>

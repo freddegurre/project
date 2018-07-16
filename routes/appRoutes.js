@@ -83,11 +83,35 @@ module.exports = function (app) {
         }); 
     })
 
-    //all events
+    //all events from db
     app.get("/api/allEvents", function (req, res){
-        db.Events.find({}).then(function(result){
+        // exclude myEvents since im the owner of that event, by looping through myEvents array. 
+        var usersEvents = req.session.user.myEvents; 
+        var userEventsArray = []; 
+        for (let i=0; i <usersEvents.length; i++){
+            var o_id = new ObjectId(usersEvents[i]); 
+            userEventsArray.push(o_id); 
+        };
+        db.Events.find({_id: { $nin : userEventsArray } } ).then(function(result){
             res.send(result); 
         })
     })
 
+    app.put("/api/joinEvent", function (req, res){
+        console.log("this should be user that wants to add", req.session.user.id); 
+        console.log("this should be the event that they want to add", req.body.eventID);
+        db.Profile.findByIdAndUpdate({_id: req.session.user.id}, { $push: { attendingEvents : req.body.eventID } }, {new : true}).then(result => {res.json(result)})
+    })
+
+    // //Add Pack Member   
+    // app.put("/api/addpack/", function (req, res) {
+    //     db.Profile.findOneAndUpdate({
+    //         _id: req.session.user.id
+    //     }, { $push: { myPack: req.body.username } }, { new: true })
+    //         .then(data => {
+    //             res.json(data);
+    //         })
+    // });
+
 }
+

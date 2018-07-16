@@ -18,5 +18,8 @@ export default {
     },
     allEvents: function(){
         return axios.get("/api/allEvents"); 
+    }, 
+    joinEvent: function(data){
+        return axios.put("/api/joinEvent", data); 
     }
 }
