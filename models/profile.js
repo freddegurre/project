@@ -22,6 +22,10 @@ const profileSchema = new Schema ({
         type: Schema.Types.ObjectId,
         ref: "Events"
       }],
+    following: [{
+        type: Schema.Types.ObjectId,
+        ref: "Profile"
+      }],
     
 }); 
 

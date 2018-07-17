@@ -1,21 +1,24 @@
 import React, {Component} from "react"; 
 import API from '../../Utils/API.js'
 import { Container, Row, Col } from 'reactstrap';
+import SuggestedFriend from "../../Components/SuggestedFriend"; 
 
 
 class Friends extends Component {
 
     state = {
-        events: []
+        suggestedFriend: [], 
+        following: []
     }
 
     componentDidMount(){
+        this.suggestedFriend(); 
     }
 
-    allEvents = () => {
-        API.allEvents().then((result) => {
-            console.log(result); 
-            this.setState({events: result.data})
+    suggestedFriend = () => {
+        API.suggestedFriend().then((result) => {
+            console.log("This should be users exept me",result.data)
+            this.setState({suggestedFriend: result.data})
         })
     }
 
@@ -35,7 +38,15 @@ class Friends extends Component {
                         <p>Following</p>
                     </Col>
                     <Col md="6">
-                        <p>Suggestions</p> 
+                        <p>Suggestions</p>
+                        {this.state.suggestedFriend.map(suggested =>{
+                        return (
+                            <SuggestedFriend 
+                            firstName={suggested.firstName}
+                            lastName={suggested.lastName}
+                            />
+                        )
+                    })}   
                     </Col>
                 </Row>
             </Container>

@@ -16,7 +16,9 @@ module.exports = function (app) {
                 id: data._id, 
                 firstName: data.firstName, 
                 lastName: data.lastName,
-                myEvents: data.myEvents 
+                myEvents: data.myEvents, 
+                attendingEvents: data.attendingEvents,
+                following: data.following
             }
             res.send(data); 
         }).catch(function(err){
@@ -35,7 +37,9 @@ module.exports = function (app) {
                     id: data[0]._id, 
                     firstName: data[0].firstName, 
                     lastName: data[0].lastName,
-                    myEvents: data[0].myEvents, 
+                    myEvents: data[0].myEvents,
+                    attendingEvents: data[0].attendingEvents,
+                    following: data[0].following
                 }
                 res.send(true)
             }
@@ -111,5 +115,19 @@ module.exports = function (app) {
                 })    
             })
     })
-}
 
+    //Sugested frineds
+    app.get("/api/suggestedFriends", function (req, res){
+        //filter out everyone that user is following already, and the current user
+        var following = req.session.user.following
+        var followingArr = [req.session.user.id]; 
+        for (let i=0; i < following.length; i++){
+            var o_id = new ObjectId(following[i]); 
+            followingArr.push(o_id); 
+        }
+        db.Profile.find({_id: { $nin : followingArr } } ).then(function(data){
+           res.send(data); 
+        })
+
+    })
+}

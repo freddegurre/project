@@ -21,5 +21,8 @@ export default {
     }, 
     joinEvent: function(data){
         return axios.put("/api/joinEvent", data); 
+    }, 
+    suggestedFriend: function(){
+        return axios.get("/api/suggestedFriends"); 
     }
 }
