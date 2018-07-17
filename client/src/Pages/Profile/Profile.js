@@ -8,7 +8,8 @@ class Profile extends Component {
     
     state = {
             user: "", 
-            myEvents: []
+            myEvents: [], 
+            attendingEvents: []
         
         };
 
@@ -18,8 +19,10 @@ class Profile extends Component {
 
     loadUser = () => {
         API.getUserData().then((result) => {
-            console.log(result.data); 
-            this.setState({user: result.data, myEvents: result.data.myEvents})
+            this.setState({user: result.data, 
+                myEvents: result.data.myEvents, 
+                attendingEvents: result.data.attendingEvents
+            })
         })
     }
 
@@ -32,6 +35,7 @@ class Profile extends Component {
                         lastName={this.state.user.lastName}/>
                     </Col>
                     <Col md="6"> 
+                        <p> Hosting </p>
                         {this.state.myEvents.map(events => {
                             return (
                                 <EventCard
@@ -47,6 +51,28 @@ class Profile extends Component {
                         })}
                     </Col>
                 </Row>
+                <Row>
+                    <Col md ="6">
+                        <p> My Friends </p>
+                    </Col>
+                    <Col md ="6">
+                        <p> Attending </p>
+                            {this.state.attendingEvents.map(attending => {
+                                return(
+                                    <EventCard
+                                    key={attending.id}
+                                    name={attending.eventName}
+                                    details={attending.eventDetails}
+                                    date={attending.eventDate}
+                                    location={attending.eventLocation}
+                                    maxPpl={attending.eventMaxppl}
+                                    eventId={attending.id}
+                                    />
+                                )
+                            })}
+                    </Col>
+                </Row>    
+
             </Container>
 
         )

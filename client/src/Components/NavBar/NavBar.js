@@ -40,6 +40,9 @@ class NavBar extends React.Component {
               <NavItem>
                 <NavLink href="/events">Events</NavLink>
               </NavItem>
+              <NavItem>
+                <NavLink href="/friends">Friends</NavLink>
+              </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   Options

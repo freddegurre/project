@@ -23,10 +23,10 @@ class Events extends Component {
     }
 
     joinEvent = (data) => {
-        console.log("kliiick", data);
         var joiningEvent = {eventID : data}
         API.joinEvent(joiningEvent).then((result) => {
-           alert("you joined" , result)
+           this.allEvents(); 
+
         })
     }
 

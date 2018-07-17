@@ -54,8 +54,7 @@ class EventModal extends React.Component {
     });
 
     API.newEvent(this.state).then((result) => {
-        
-     
+        this.toggle()
     })
 
 };
