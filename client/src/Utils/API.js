@@ -24,5 +24,11 @@ export default {
     }, 
     suggestedFriend: function(){
         return axios.get("/api/suggestedFriends"); 
+    }, 
+    follow: function (data){
+        return axios.put("/api/follow", data); 
+    }, 
+    following: function (){
+        return axios.get("/api/following");
     }
 }

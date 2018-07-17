@@ -11,7 +11,7 @@ const SuggestedFriend = (props) => {
                 <CardBody>
                     <CardTitle> {props.firstName} </CardTitle>
                     <CardText>{props.lastName}</CardText>
-                    <Button>Follow</Button>
+                    <Button onClick={props.follow}>Follow</Button>
                 </CardBody>
             </Card>
         </div>

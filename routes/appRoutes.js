@@ -126,8 +126,42 @@ module.exports = function (app) {
             followingArr.push(o_id); 
         }
         db.Profile.find({_id: { $nin : followingArr } } ).then(function(data){
-           res.send(data); 
+           res.json(data); 
         })
-
     })
+
+    //get al people user is following
+    app.get("/api/following", function (req, res) {
+        var id = req.session.user.id
+        var o_id = new ObjectId(id);
+        db.Profile.findOne({_id: o_id}).populate("following").then(function (result){
+            res.json(result.following); 
+        })
+    })
+
+
+    // FOllow person 
+    app.put("/api/follow", function( req, res){
+        // add person id to following array for current user
+        db.Profile.findByIdAndUpdate({_id: req.session.user.id}, 
+        { $push : { following : req.body.id } }, 
+        {new : true}).then(function (data){
+            res.json(data); 
+        })
+    })
+
 }
+
+
+// app.put("/api/joinEvent", function (req, res){
+//     //add event id to users profile attendingEvents
+//     db.Profile.findByIdAndUpdate({_id: req.session.user.id}, 
+//         { $push: { attendingEvents : req.body.eventID } },
+//          {new : true}).then(function (data){
+//              //add user id to event participants
+//             db.Events.findByIdAndUpdate({_id:req.body.eventID}, 
+//                 { $push: { participants : req.session.user.id } }, 
+//                     {new: true}).then(result => {res.json(result);
+//             })    
+//         })
+// })

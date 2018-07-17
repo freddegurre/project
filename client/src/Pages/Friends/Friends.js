@@ -8,11 +8,12 @@ class Friends extends Component {
 
     state = {
         suggestedFriend: [], 
-        following: []
+        stalking: []
     }
 
     componentDidMount(){
-        this.suggestedFriend(); 
+        this.suggestedFriend();
+        this.following() 
     }
 
     suggestedFriend = () => {
@@ -22,13 +23,20 @@ class Friends extends Component {
         })
     }
 
-    joinEvent = (data) => {
-        var joiningEvent = {eventID : data}
-        API.joinEvent(joiningEvent).then((result) => {
-           this.allEvents(); 
-
+    following = () => {
+        API.following().then((results) => {
+            console.log("this is follwoing", results);
+             this.setState({stalking: results.data}); 
         })
     }
+
+    follow = (data) => {
+        var personToFollow = {id: data}
+        API.follow(personToFollow).then((result) => {
+            
+        })
+    }
+
 
     render = () => {
         return (
@@ -36,6 +44,15 @@ class Friends extends Component {
                 <Row>
                     <Col md="6"> 
                         <p>Following</p>
+                        {this.state.stalking.map(myFriend =>{
+                            return (
+                                <SuggestedFriend
+                                firstName={myFriend.firstName}
+                                lastName={myFriend.lastName}
+                                />
+                            )
+                        })}
+                        
                     </Col>
                     <Col md="6">
                         <p>Suggestions</p>
@@ -44,6 +61,7 @@ class Friends extends Component {
                             <SuggestedFriend 
                             firstName={suggested.firstName}
                             lastName={suggested.lastName}
+                            follow={() => this.follow(suggested._id)}
                             />
                         )
                     })}   
