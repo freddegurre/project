@@ -7,36 +7,40 @@ import SuggestedFriend from "../../Components/SuggestedFriend";
 class Friends extends Component {
 
     state = {
-        suggestedFriend: [], 
-        stalking: []
+        stalking: [],
+        suggestedFriend: []
+
     }
 
     componentDidMount(){
-        this.suggestedFriend();
-        this.following() 
+      this.loadUser();
+      this.suggestedFriend(); 
+    }
+
+    loadUser = () => {
+        API.getUserData().then((result) => {
+            this.setState({stalking: result.data.following 
+            })
+        })
     }
 
     suggestedFriend = () => {
         API.suggestedFriend().then((result) => {
-            console.log("This should be users exept me",result.data)
             this.setState({suggestedFriend: result.data})
-        })
-    }
-
-    following = () => {
-        API.following().then((results) => {
-            console.log("this is follwoing", results);
-             this.setState({stalking: results.data}); 
         })
     }
 
     follow = (data) => {
         var personToFollow = {id: data}
         API.follow(personToFollow).then((result) => {
-            
-        })
-    }
+            var newSuggested = this.state.suggestedFriend.filter(function(user) { 
+                return user._id != personToFollow.id });  
+            this.setState({stalking: result.data.following, 
+                suggestedFriend: newSuggested});
+        }) 
 
+    }
+    
 
     render = () => {
         return (

@@ -53,8 +53,8 @@ module.exports = function (app) {
     app.get("/api/user", function (req, res) { 
         var id = req.session.user.id
         var o_id = new ObjectId(id);
-        db.Profile.findOne({ _id: o_id }).populate("myEvents").populate("attendingEvents").then(function (result) {
-            console.log(result); 
+        db.Profile.findOne({ _id: o_id }).populate("myEvents").populate("attendingEvents").populate("following").then(function (result) {
+            console.log("this is user", result); 
             res.send(result);
         })
     })
@@ -145,7 +145,7 @@ module.exports = function (app) {
         // add person id to following array for current user
         db.Profile.findByIdAndUpdate({_id: req.session.user.id}, 
         { $push : { following : req.body.id } }, 
-        {new : true}).then(function (data){
+        {new : true}).populate("following").then(function (data){
             res.json(data); 
         })
     })
