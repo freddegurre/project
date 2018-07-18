@@ -25,7 +25,10 @@ class Events extends Component {
     joinEvent = (data) => {
         var joiningEvent = {eventID : data}
         API.joinEvent(joiningEvent).then((result) => {
-           this.allEvents(); 
+            var newEventsArr = this.state.events.filter(function(event){
+                return event._id != joiningEvent.eventID
+            }); 
+            this.setState({events: newEventsArr}); 
 
         })
     }

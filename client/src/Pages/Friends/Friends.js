@@ -34,7 +34,8 @@ class Friends extends Component {
         var personToFollow = {id: data}
         API.follow(personToFollow).then((result) => {
             var newSuggested = this.state.suggestedFriend.filter(function(user) { 
-                return user._id != personToFollow.id });  
+                return user._id != personToFollow.id 
+            });  
             this.setState({stalking: result.data.following, 
                 suggestedFriend: newSuggested});
         }) 
