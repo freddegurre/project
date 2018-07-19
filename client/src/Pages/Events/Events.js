@@ -17,7 +17,7 @@ class Events extends Component {
 
     allEvents = () => {
         API.allEvents().then((result) => {
-            console.log(result); 
+            console.log("this is all events", result); 
             this.setState({events: result.data})
         })
     }

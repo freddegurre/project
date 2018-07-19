@@ -26,6 +26,7 @@ class Friends extends Component {
 
     suggestedFriend = () => {
         API.suggestedFriend().then((result) => {
+            console.log("this is suggested friend", result.data);
             this.setState({suggestedFriend: result.data})
         })
     }

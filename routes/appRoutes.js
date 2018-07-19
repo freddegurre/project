@@ -90,15 +90,13 @@ module.exports = function (app) {
 
     //all events from db
     app.get("/api/allEvents", function (req, res){
-        // exclude myEvents since im the owner of that event, by looping through myEvents array. 
-        var usersEvents = req.session.user.myEvents; 
-        var userEventsArray = []; 
-        for (let i=0; i <usersEvents.length; i++){
-            var o_id = new ObjectId(usersEvents[i]); 
-            userEventsArray.push(o_id); 
-        };
-        db.Events.find({_id: { $nin : userEventsArray } } ).then(function(result){
-            res.send(result); 
+        var id = req.session.user.id
+        var o_id = new ObjectId(id);
+        db.Profile.findOne({ _id: o_id }).then(function (result) {
+            var eventsToExclude = (result.attendingEvents.concat(result.myEvents));
+            db.Events.find({_id: { $nin : eventsToExclude} } ).then(function(result){
+                res.send(result); 
+            })
         })
     })
 
@@ -116,17 +114,16 @@ module.exports = function (app) {
             })
     })
 
+
+
     //Sugested frineds
     app.get("/api/suggestedFriends", function (req, res){
-        //filter out everyone that user is following already, and the current user
-        var following = req.session.user.following
-        var followingArr = [req.session.user.id]; 
-        for (let i=0; i < following.length; i++){
-            var o_id = new ObjectId(following[i]); 
-            followingArr.push(o_id); 
-        }
-        db.Profile.find({_id: { $nin : followingArr } } ).then(function(data){
-           res.json(data); 
+        var id = req.session.user.id
+        var o_id = new ObjectId(id);
+        db.Profile.findOne({ _id: o_id }).then(function (result) {
+            db.Profile.find({_id: { $nin : result.following } } ).then(function(data){
+               res.json(data);  
+            })
         })
     })
 
@@ -146,12 +143,28 @@ module.exports = function (app) {
         db.Profile.findByIdAndUpdate({_id: req.session.user.id}, 
         { $push : { following : req.body.id } }, 
         {new : true}).populate("following").then(function (data){
+            console.log("when i press follow", data)
             res.json(data); 
         })
     })
 
 }
 
+// userData = (id) => {
+//     db.Profile.findOne({ _id: id }).populate("myEvents").populate("attendingEvents").populate("following").then(function (person){
+//         return(person)
+//     }).then(function (data) {
+//         "new api call"
+//     })
+
+// }
+// app.put("/api/follow", function( req, res){
+//     var id = req.session.user.id
+//     var o_id = new ObjectId(id);
+//     userData(o_id); 
+// }).then(function (data) {
+//     "new api call"
+// })
 
 // app.put("/api/joinEvent", function (req, res){
 //     //add event id to users profile attendingEvents
