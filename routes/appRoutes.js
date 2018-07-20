@@ -94,7 +94,7 @@ module.exports = function (app) {
         var o_id = new ObjectId(id);
         db.Profile.findOne({ _id: o_id }).then(function (result) {
             var eventsToExclude = (result.attendingEvents.concat(result.myEvents));
-            db.Events.find({_id: { $nin : eventsToExclude} } ).then(function(result){
+            db.Events.find({_id: { $nin : eventsToExclude} } ).populate("participants").then(function(result){
                 res.send(result); 
             })
         })

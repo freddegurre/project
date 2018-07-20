@@ -64,27 +64,25 @@ class EventModal extends React.Component {
       <div>
         <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}New Event</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-          <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+          <ModalHeader toggle={this.toggle}>{this.state.eventName}</ModalHeader>
           <ModalBody>
           <div>
-                <p>New event {this.state.eventName}</p>
                 <Form className="form">
                     <FormGroup>
                         <Label for="eventName">Event Name</Label>
                         <Input type="text" value={this.state.eventName} name="eventName" onChange={this.handleInputChange} placeholder="Event Name" />
 
-                        <Label for="eventDetails">Event Details</Label>
-                        <Input type="text" value={this.state.eventDetails} name="eventDetails" onChange={this.handleInputChange} placeholder="Event Details" />
-
                         <Label for="eventDate">Event Date</Label>
-                        <Input type="text" value={this.state.eventDate} name="eventDate" onChange={this.handleInputChange} placeholder="Event Date" />
+                        <Input type="date" value={this.state.eventDate} name="eventDate" onChange={this.handleInputChange} placeholder="Event Date" />
 
                         <Label for="eventMaxPpl">Max people</Label>
-                        <Input type="text" value={this.state.eventMaxPpl} name="eventMaxPpl" onChange={this.handleInputChange} placeholder="Max people" />
+                        <Input type="number" value={this.state.eventMaxPpl} name="eventMaxPpl" onChange={this.handleInputChange} placeholder="Max people" />
 
                         <Label for="eventLocation">Event Location</Label>
                         <Input type="text" value={this.state.eventLocation} name="eventLocation" onChange={this.handleInputChange} placeholder="Event Location" />
 
+                        <Label for="eventDetails">Event Details</Label>
+                        <Input type="textarea" value={this.state.eventDetails} name="eventDetails" onChange={this.handleInputChange} placeholder="Event Details" />
                     </FormGroup>
                 </Form>
             </div>

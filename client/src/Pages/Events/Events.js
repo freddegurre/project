@@ -1,8 +1,11 @@
 import React, {Component} from "react"; 
 import API from '../../Utils/API.js'
+import "./Events.css";
 import { Container, Row, Col } from 'reactstrap';
 import EventModal from "../../Components/EventModal"
-import EventCard from "../../Components/EventCard"; 
+import EventCard from "../../Components/EventCard";
+import { Nav, NavItem, NavLink } from 'reactstrap';
+import MyCal from "../../Components/Calendar";
 
 
 class Events extends Component {
@@ -17,7 +20,7 @@ class Events extends Component {
 
     allEvents = () => {
         API.allEvents().then((result) => {
-            console.log("this is all events", result); 
+            console.log("this is all events", result.data); 
             this.setState({events: result.data})
         })
     }
@@ -35,29 +38,54 @@ class Events extends Component {
 
     render = () => {
         return (
-            <Container>
-                <Row>
-                    <Col md="2"> 
+            <div>
+                <div className="Heading">
+                    <div className="Header">
+                        <h2> Find Event </h2>
+                    </div>
+                </div>
+                <Container>
+                    <Row>
+                        <Col md="9"> 
+                           {this.state.events.map(events =>{
+                            return (
+                                
+                                <EventCard 
+                                key={events._id}
+                                name={events.eventName}
+                                details={events.eventDetails}
+                                date={events.eventDate}
+                                location={events.eventLocation}
+                                maxPpl={events.eventMaxppl}
+                                eventid={events._id}
+                                participants={events.participants}
+                                join={() => this.joinEvent(events._id)}
+                                />
+                            )
+                        })}   
+                        </Col>
+                        <Col md="3"> 
                         <EventModal />
-                    </Col>
-                    <Col md="10">
-                    {this.state.events.map(events =>{
-                        return (
-                            <EventCard 
-                            key={events._id}
-                            name={events.eventName}
-                            details={events.eventDetails}
-                            date={events.eventDate}
-                            location={events.eventLocation}
-                            maxPpl={events.eventMaxppl}
-                            eventid={events._id}
-                            join={() => this.joinEvent(events._id)}
-                            />
-                        )
-                    })}   
-                    </Col>
-                </Row>
-            </Container>
+                        <div>
+                            <hr />
+                                <Nav vertical>
+                                    <NavItem>
+                                        <NavLink href="#">Filter</NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink href="#">Filter</NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink href="#">Filter</NavLink>
+                                    </NavItem>
+                                </Nav>
+                            <hr />
+                        </div>
+                        <MyCal />
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
         )
     }
 }
