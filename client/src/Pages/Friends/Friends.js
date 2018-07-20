@@ -1,4 +1,5 @@
 import React, {Component} from "react"; 
+import "./Friends.css";
 import API from '../../Utils/API.js'
 import { Container, Row, Col } from 'reactstrap';
 import SuggestedFriend from "../../Components/SuggestedFriend"; 
@@ -46,6 +47,12 @@ class Friends extends Component {
 
     render = () => {
         return (
+            <div>
+                <div className="Heading">
+                    <div className="Header">
+                        <h2> Friends </h2>
+                    </div>
+                </div>
             <Container>
                 <Row>
                     <Col md="6"> 
@@ -74,6 +81,7 @@ class Friends extends Component {
                     </Col>
                 </Row>
             </Container>
+        </div>
         )
     }
 }

@@ -14,11 +14,11 @@ module.exports = function (app) {
             req.session.user ={
                 auth: true, 
                 id: data._id, 
-                firstName: data.firstName, 
-                lastName: data.lastName,
-                myEvents: data.myEvents, 
-                attendingEvents: data.attendingEvents,
-                following: data.following
+                // firstName: data.firstName, 
+                // lastName: data.lastName,
+                // myEvents: data.myEvents, 
+                // attendingEvents: data.attendingEvents,
+                // following: data.following
             }
             res.send(data); 
         }).catch(function(err){
@@ -35,11 +35,11 @@ module.exports = function (app) {
                 req.session.user = {
                     auth: true, 
                     id: data[0]._id, 
-                    firstName: data[0].firstName, 
-                    lastName: data[0].lastName,
-                    myEvents: data[0].myEvents,
-                    attendingEvents: data[0].attendingEvents,
-                    following: data[0].following
+                    // firstName: data[0].firstName, 
+                    // lastName: data[0].lastName,
+                    // myEvents: data[0].myEvents,
+                    // attendingEvents: data[0].attendingEvents,
+                    // following: data[0].following
                 }
                 res.send(true)
             }
