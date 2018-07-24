@@ -11,7 +11,8 @@ class Profile extends Component {
     state = {
             user: "", 
             myEvents: [], 
-            attendingEvents: []
+            attendingEvents: [], 
+            whatToShow: "", 
         
         };
 
@@ -28,6 +29,14 @@ class Profile extends Component {
         })
     }
 
+    showComponent = (x) => {
+        this.setState({whatToShow: x})
+        console.log(this.state.whatToShow)
+    }
+
+    // if (this.state.paymentProviders.providerName === 'stripe') { component = <StripeForm /> } else if (...) { ... }
+    // {() => (this.state.whatToShow === "whatToShow" ? <Profile/> : <Home/>)}
+
     render = () => {
         return (
             <div>
@@ -39,39 +48,47 @@ class Profile extends Component {
                 <Container>
                     <Row>
                         <Col md="9">
-                            <hr />
-                            <p> Hosting </p>
-                                {this.state.myEvents.map(events => {
+                            
+                                {this.state.whatToShow === "myEvents" ? this.state.myEvents.map(events => {
+                                    
                                     return (
-                                        <EventCard
-                                        key={events.id}
-                                        name={events.eventName}
-                                        details={events.eventDetails}
-                                        date={events.eventDate}
-                                        location={events.eventLocation}
-                                        maxPpl={events.eventMaxppl}
-                                        eventId={events.id}
-                                        participants={events.participants}
-                                        /> 
-                                    )
-                                })}
-                            <hr />
-                            <p> Attending </p>
-                                    {this.state.attendingEvents.map(attending => {
+                                    <div>
+                                        <hr />
+                                            <p> Hosting </p>
+                                                <EventCard
+                                                key={events.id}
+                                                name={events.eventName}
+                                                details={events.eventDetails}
+                                                date={events.eventDate}
+                                                location={events.eventLocation}
+                                                maxPpl={events.eventMaxppl}
+                                                eventId={events.id}
+                                                participants={events.participants}
+                                                /> 
+                                        <hr /> 
+                                     </div> )
+                                }) : null }
+                           
+                                {this.state.whatToShow === "attendingEvents" ? this.state.attendingEvents.map(attending => {
                                         return(
-                                            <EventCard
-                                            key={attending.id}
-                                            name={attending.eventName}
-                                            details={attending.eventDetails}
-                                            date={attending.eventDate}
-                                            location={attending.eventLocation}
-                                            maxPpl={attending.eventMaxppl}
-                                            eventId={attending.id}
-                                            participants={attending.participants}
-                                            />
+                                            <div>
+                                                <hr />
+                                                    <p> Attending </p>
+                                                        <EventCard
+                                                        key={attending.id}
+                                                        name={attending.eventName}
+                                                        details={attending.eventDetails}
+                                                        date={attending.eventDate}
+                                                        location={attending.eventLocation}
+                                                        maxPpl={attending.eventMaxppl}
+                                                        eventId={attending.id}
+                                                        participants={attending.participants}
+                                                        />
+                                                <hr />
+                                            </div>
                                         )
-                                    })}
-                            <hr />
+                                    }) : null}
+                                {this.state.whatToShow === "profile" ? <h3> profile info here </h3> : null }
                         </Col>
                         <Col md="3">
                             <ProfileCard 
@@ -81,13 +98,13 @@ class Profile extends Component {
                             <hr />
                                  <Nav vertical>
                                     <NavItem>
-                                        <NavLink href="#">My events</NavLink>
+                                        <NavLink onClick={() => this.showComponent("myEvents")} >My events</NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink href="#">Attending</NavLink>
+                                        <NavLink onClick={() => this.showComponent("attendingEvents")} >Attending</NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink href="#">Profile</NavLink>
+                                        <NavLink onClick={() => this.showComponent("profile")}>Profile</NavLink>
                                     </NavItem>
                                 </Nav>
                             <hr />
