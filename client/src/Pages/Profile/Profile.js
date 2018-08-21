@@ -31,11 +31,7 @@ class Profile extends Component {
 
     showComponent = (x) => {
         this.setState({whatToShow: x})
-        console.log(this.state.whatToShow)
     }
-
-    // if (this.state.paymentProviders.providerName === 'stripe') { component = <StripeForm /> } else if (...) { ... }
-    // {() => (this.state.whatToShow === "whatToShow" ? <Profile/> : <Home/>)}
 
     render = () => {
         return (
@@ -118,6 +114,3 @@ class Profile extends Component {
 }
 
 export default Profile;
-
-
-

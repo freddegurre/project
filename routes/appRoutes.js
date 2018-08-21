@@ -1,3 +1,4 @@
+Routes/appRoutes
 var db = require("../models");
 var ObjectId = require('mongodb').ObjectId;
 
@@ -92,7 +93,9 @@ module.exports = function (app) {
     app.get("/api/allEvents", function (req, res){
         var id = req.session.user.id
         var o_id = new ObjectId(id);
-        db.Profile.findOne({ _id: o_id }).then(function (result) {
+        db.Profile.findOne({ _id: o_id }).populate("following").then(function (result) {
+           // need to loop through following array, then loop that persons myEvents Arr, and construct object to send
+           //to frontend only with events of people i follow and have not already joined
             var eventsToExclude = (result.attendingEvents.concat(result.myEvents));
             db.Events.find({_id: { $nin : eventsToExclude} } ).populate("participants").then(function(result){
                 res.send(result); 
@@ -178,3 +181,4 @@ module.exports = function (app) {
 //             })    
 //         })
 // })
+

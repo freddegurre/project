@@ -3,13 +3,17 @@ const Schema = mongoose.Schema;
 
 const profileSchema = new Schema ({
     firstName: {
-        type: String
+        type: String, 
+        trim: true
     },
     lastName: {
-        type: String
+        type: String, 
+        trim: true
     }, 
     password: {
-        type: String
+        type: String,
+        trim: true, 
+        required: "Password is Required"
     }, 
     token: { 
         type: String 
