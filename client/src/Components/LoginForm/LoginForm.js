@@ -62,10 +62,10 @@ class LoginForm extends Component {
                 <p>Hello {this.state.firstName}</p>
                 <Form className="form">
                     <FormGroup>
-                        <Label for="firstName">First Name</Label>
+                        <Label for="firstName"></Label>
                         <Input type="text" value={this.state.firstName} name="firstName" onChange={this.handleInputChange} placeholder="First Name" />
 
-                        <Label for="password">Password</Label>
+                        <Label for="password"></Label>
                         <Input type="password" value={this.state.password} name="password" onChange={this.handleInputChange} placeholder="password" />
 
                     </FormGroup>

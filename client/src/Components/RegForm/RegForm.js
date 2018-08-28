@@ -69,13 +69,13 @@ class RegForm extends Component {
             </p>
             <Form className="form">
               <FormGroup>
-                <Label for="firstName">First Name</Label>
+                <Label for="firstName"></Label>
                 <Input type="text" value={this.state.firstName} name="firstName" onChange={this.handleInputChange} placeholder="First Name" />
                 
-                <Label for="lastName">Last Name</Label>
+                <Label for="lastName"></Label>
                 <Input type="text" value={this.state.lastName} name="lastName" onChange={this.handleInputChange} placeholder="Last Name" />
 
-                <Label for="password">Password</Label>
+                <Label for="password"></Label>
                 <Input type="password" value={this.state.password} name="password" onChange={this.handleInputChange} placeholder="password" />
               </FormGroup>
               <Button onClick={this.handleFormSubmit}> Submit </Button>

@@ -1,4 +1,3 @@
-Routes/appRoutes
 var db = require("../models");
 var ObjectId = require('mongodb').ObjectId;
 
