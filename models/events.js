@@ -33,6 +33,9 @@ const eventsSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: "Profile"
     }],
+    public: {
+      type: Boolean, default: true 
+    }
   });
   
   const Events = mongoose.model("Events", eventsSchema);

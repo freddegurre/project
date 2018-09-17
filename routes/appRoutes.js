@@ -102,6 +102,16 @@ module.exports = function (app) {
         })
     })
 
+    //New get events should be based on time
+    app.get("/api/events", function (req, res){
+        // var dt = Date.now()
+        // var utcDate = dt.toUTCString();
+        // console.log(utcDate); 
+        db.Events.find({"timestamp" : {"$lte" : ISODate() } } ).then(function(result){
+            console.log(result); 
+        })
+    }); 
+
     //Join event
     app.put("/api/joinEvent", function (req, res){
         //add event id to users profile attendingEvents

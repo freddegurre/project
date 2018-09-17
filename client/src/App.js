@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom"
 import IndexPage from "./Pages/IndexPage";
+import LoginRegister from "./Pages/LoginRegister";
+import Home from "./Pages/Home"; 
 import Profile from "./Pages/Profile";
-import LoginRegister from "./Pages/LoginRegister"; 
 import Events from "./Pages/Events"
 import Friends from "./Pages/Friends"
 import API from "./Utils/API"
@@ -36,6 +37,7 @@ class App extends Component {
         <Switch>
         <Route exact path="/" render={() => (this.state.session === true ? <Profile/> : <IndexPage/>)} />
         <Route exact path="/LoginRegister" render={() => (this.state.session === true ? <Profile/> : <LoginRegister/>)} />
+        <Route exact path="/home" render={() => (this.state.session === true ? <Home/> : <IndexPage/>)} />
         <Route exact path="/profile" render={() => (this.state.session === true ? <Profile/> : <IndexPage/>)} />
         <Route exact path="/events" render={() => (this.state.session === true ? <Events/> : <IndexPage/>)} />
         <Route exact path="/friends" render={() => (this.state.session === true ? <Friends/> : <IndexPage/>)} />
