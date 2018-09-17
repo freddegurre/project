@@ -3,6 +3,7 @@ import "./Friends.css";
 import API from '../../Utils/API.js'
 import { Container, Row, Col } from 'reactstrap';
 import SuggestedFriend from "../../Components/SuggestedFriend"; 
+import NavBar from "../../Components/NavBar"; 
 
 
 class Friends extends Component {
@@ -48,6 +49,7 @@ class Friends extends Component {
     render = () => {
         return (
             <div>
+            <NavBar />
                 <div className="Heading">
                     <div className="Header">
                         <h2> Friends </h2>

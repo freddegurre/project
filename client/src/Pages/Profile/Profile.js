@@ -2,9 +2,11 @@ import React, { Component }from "react";
 import "./Profile.css";
 import ProfileCard from "../../Components/ProfileCard";
 import EventCard from "../../Components/EventCard"; 
+import NavBar from "../../Components/NavBar"; 
 import API from '../../Utils/API.js'
 import { Container, Row, Col } from 'reactstrap';
 import { Nav, NavItem, NavLink } from 'reactstrap';
+
 
 class Profile extends Component {
     
@@ -36,6 +38,7 @@ class Profile extends Component {
     render = () => {
         return (
             <div>
+                <NavBar />
                 <div className="Heading">
                     <div className="Header">
                         <h2> Profile </h2>

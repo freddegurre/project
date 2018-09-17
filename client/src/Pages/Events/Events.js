@@ -6,6 +6,7 @@ import EventModal from "../../Components/EventModal"
 import EventCard from "../../Components/EventCard";
 import { Nav, NavItem, NavLink } from 'reactstrap';
 import MyCal from "../../Components/Calendar";
+import NavBar from "../../Components/NavBar"; 
 
 
 class Events extends Component {
@@ -39,6 +40,7 @@ class Events extends Component {
     render = () => {
         return (
             <div>
+                <NavBar />
                 <div className="Heading">
                     <div className="Header">
                         <h2> Find Event </h2>

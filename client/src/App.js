@@ -7,7 +7,6 @@ import LoginRegister from "./Pages/LoginRegister";
 import Events from "./Pages/Events"
 import Friends from "./Pages/Friends"
 import API from "./Utils/API"
-import NavBar from "./Components/NavBar"
 
 
 class App extends Component {
@@ -33,7 +32,6 @@ class App extends Component {
     return (
     
       <div> 
-        <NavBar/>
       <Router>
         <Switch>
         <Route exact path="/" render={() => (this.state.session === true ? <Profile/> : <Home/>)} />
