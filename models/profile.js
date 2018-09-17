@@ -30,6 +30,9 @@ const profileSchema = new Schema ({
         type: Schema.Types.ObjectId,
         ref: "Profile"
       }],
+      timestamp: { 
+        type: Date, default: Date.now
+      },
     
 }); 
 

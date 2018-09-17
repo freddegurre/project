@@ -6,6 +6,9 @@ const eventsSchema = new Schema({
       type: String,
        //required: true 
     },
+    timestamp: { 
+      type: Date, default: Date.now
+    },
     eventDetails: {
       type: String,
        //required: true 
