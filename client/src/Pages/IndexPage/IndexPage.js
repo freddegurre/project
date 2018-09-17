@@ -3,7 +3,7 @@ import { Container, Row, Col, Button } from 'reactstrap';
 import logo from "./logo.svg";
 import NavBarNoSession from "../../Components/NavBarNoSession"
 
-class Home extends Component {
+class IndexPage extends Component {
     
     render = () => {
         return (
@@ -34,4 +34,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default IndexPage;
