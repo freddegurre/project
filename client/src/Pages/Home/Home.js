@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import RegForm from "../../Components/RegForm"
-import LoginForm from "../../Components/LoginForm"
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Button } from 'reactstrap';
 import logo from "./logo.svg";
 
 class Home extends Component {
@@ -17,12 +15,7 @@ class Home extends Component {
                 </div>
                 <Container>
                     <Row>
-                        <Col md="6"> 
-                        <RegForm />
-                        </Col>
-                        <Col md="6">
-                        <LoginForm />
-                        </Col>
+                     <Button href="/LoginRegister">Sign UP!</Button>
                     </Row>
                 </Container>
             </div>
