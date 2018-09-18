@@ -2,7 +2,8 @@ import React, {Component} from "react";
 import API from '../../Utils/API.js'
 import "./Home.css";
 import { Container, Row, Col } from 'reactstrap';
-import NavBar from "../../Components/NavBar"; 
+import NavBar from "../../Components/NavBar";
+import EventModal from "../../Components/EventModal"
 
 
 class Home extends Component {
@@ -31,6 +32,7 @@ class Home extends Component {
                         <h2> Home </h2>
                     </div>
                 </div>
+                <EventModal />
             </div>
         )
         

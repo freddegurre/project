@@ -21,6 +21,15 @@ const eventsSchema = new Schema({
       type: String,
       //required: true 
     },
+    startTime: {
+      type: String,
+    },
+    endTime: {
+      type: String,
+    },
+    category: {
+      type: String,
+    },
     eventMaxPpl: {
       type: String,
        //required: true 
@@ -30,6 +39,10 @@ const eventsSchema = new Schema({
         ref: "Profile"
     },
     participants: [{
+      type: Schema.Types.ObjectId,
+      ref: "Profile"
+    }],
+    invited: [{
       type: Schema.Types.ObjectId,
       ref: "Profile"
     }],

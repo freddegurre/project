@@ -8,11 +8,13 @@ class EventModal extends React.Component {
     super(props);
     this.state = {
         modal: false, 
-        eventName: "", 
-        eventDetails: "", 
-        eventDate: "", 
-        eventMaxPpl: "", 
-        eventLocation: ""
+        eventName: "",
+        category:"",
+        startTime: "", 
+        endTime: "", 
+        eventMaxPpl: "",
+        eventLocation:"",
+        private:"",
     };
 
     this.toggle = this.toggle.bind(this);
@@ -39,7 +41,7 @@ class EventModal extends React.Component {
     // Preventing the default behavior of the form submit (which is to refresh the page)
     event.preventDefault();
     console.log(" this is state on NewEventForm ", this.state)
-    if (!this.state.eventName || !this.state.eventDetails || !this.state.eventDate || !this.state.eventMaxPpl) {
+    if (!this.state.eventName || !this.state.category || !this.state.startTime || !this.state.endTime) {
       alert("Fill all fields");
     } else {
       alert(`will now post thist event ${this.state.eventName} `);
@@ -47,10 +49,13 @@ class EventModal extends React.Component {
 
     this.setState({
         eventName: "",
+        category: "",
         eventDetails: "",
-        eventDate: "", 
+        startTime: "",
+        endTime:"",
         eventMaxPpl: "", 
-        eventLocation: ""
+        eventLocation: "",
+        private: false,
     });
 
     API.newEvent(this.state).then((result) => {
@@ -64,25 +69,40 @@ class EventModal extends React.Component {
       <div>
         <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}New Event</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-          <ModalHeader toggle={this.toggle}>{this.state.eventName}</ModalHeader>
+          <ModalHeader toggle={this.toggle}>New event!</ModalHeader>
           <ModalBody>
           <div>
                 <Form className="form">
                     <FormGroup>
                         <Label for="eventName">Event Name</Label>
                         <Input type="text" value={this.state.eventName} name="eventName" onChange={this.handleInputChange} placeholder="Event Name" />
+                        
+                        <Label for="category">Category</Label>
+                        <Input type="select" name="category" id="category" onChange={this.handleInputChange} >
+                          <option>Walk</option>
+                          <option>Lunch</option>
+                          <option>Gym</option>
+                          <option>Dinner</option>
+                          <option>Drinks</option>
+                        </Input>
 
-                        <Label for="eventDate">Event Date</Label>
-                        <Input type="date" value={this.state.eventDate} name="eventDate" onChange={this.handleInputChange} placeholder="Event Date" />
+                        <Label for="startTime">Start Time</Label>
+                        <Input type="date" value={this.state.startTime} name="startTime" onChange={this.handleInputChange} placeholder="Start Time" />
+                        
+                        <Label for="endTime">End Time</Label>
+                        <Input type="date" value={this.state.endTime} name="endTime" onChange={this.handleInputChange} placeholder="End Time" />
 
                         <Label for="eventMaxPpl">Max people</Label>
                         <Input type="number" value={this.state.eventMaxPpl} name="eventMaxPpl" onChange={this.handleInputChange} placeholder="Max people" />
 
                         <Label for="eventLocation">Event Location</Label>
-                        <Input type="text" value={this.state.eventLocation} name="eventLocation" onChange={this.handleInputChange} placeholder="Event Location" />
+                        <Input type="text" value={this.state.eventLocation} name="eventLocation" onChange={this.handleInputChange} placeholder="Will update to map" />
 
-                        <Label for="eventDetails">Event Details</Label>
-                        <Input type="textarea" value={this.state.eventDetails} name="eventDetails" onChange={this.handleInputChange} placeholder="Event Details" />
+                        <Label for="private" check>
+                        <Input type="checkbox" value={this.state.private} name="private" onChange={this.handleInputChange} defaultChecked={false}/>{}
+                          Private event
+                        </Label>
+                        
                     </FormGroup>
                 </Form>
             </div>

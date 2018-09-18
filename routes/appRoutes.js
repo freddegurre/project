@@ -71,21 +71,22 @@ module.exports = function (app) {
 
     //Create new event
     app.post("/api/newEvent", function (req, res){
-        db.Events.create({
-            eventName: req.body.eventName,
-            eventDetails: req.body.eventDetails, 
-            eventDate: req.body.eventDate,
-            eventMaxPpl: req.body.eventMaxPpl,
-            eventLocation: req.body.eventLocation, 
-            eventOwner: req.session.user.id
-        }).then(function(data){
-            db.Profile.findOneAndUpdate({ _id: req.session.user.id}, 
-                     { $push: { myEvents: data._id} }, {new: true}).then(function (eventData){
-                         res.json(eventData)
-                     })      
-        }).catch(function (err) {
-                    res.json(err);
-        }); 
+        console.log(req.body); 
+        // db.Events.create({
+        //     eventName: req.body.eventName,
+        //     eventDetails: req.body.eventDetails, 
+        //     eventDate: req.body.eventDate,
+        //     eventMaxPpl: req.body.eventMaxPpl,
+        //     eventLocation: req.body.eventLocation, 
+        //     eventOwner: req.session.user.id
+        // }).then(function(data){
+        //     db.Profile.findOneAndUpdate({ _id: req.session.user.id}, 
+        //              { $push: { myEvents: data._id} }, {new: true}).then(function (eventData){
+        //                  res.json(eventData)
+        //              })      
+        // }).catch(function (err) {
+        //             res.json(err);
+        // }); 
     })
 
     //all events from db
@@ -104,12 +105,13 @@ module.exports = function (app) {
 
     //New get events should be based on time
     app.get("/api/events", function (req, res){
+        console.log(req.session.user.id)
         // var dt = Date.now()
         // var utcDate = dt.toUTCString();
         // console.log(utcDate); 
-        db.Events.find({"timestamp" : {"$lte" : ISODate() } } ).then(function(result){
-            console.log(result); 
-        })
+        // db.Events.find({"timestamp" : {"$lte" : ISODate() } } ).then(function(result){
+        //     console.log(result); 
+        // })
     }); 
 
     //Join event
