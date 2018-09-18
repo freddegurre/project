@@ -14,7 +14,7 @@ class EventModal extends React.Component {
         endTime: "", 
         eventMaxPpl: "",
         eventLocation:"",
-        private:"",
+        private:true,
     };
 
     this.toggle = this.toggle.bind(this);
@@ -99,7 +99,7 @@ class EventModal extends React.Component {
                         <Input type="text" value={this.state.eventLocation} name="eventLocation" onChange={this.handleInputChange} placeholder="Will update to map" />
 
                         <Label for="private" check>
-                        <Input type="checkbox" value={this.state.private} name="private" onChange={this.handleInputChange} defaultChecked={false}/>{}
+                        <Input type="checkbox" value={this.state.private} name="private" onChange={this.handleInputChange} defaultChecked={true}/>{}
                           Private event
                         </Label>
                         

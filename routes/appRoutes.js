@@ -72,21 +72,23 @@ module.exports = function (app) {
     //Create new event
     app.post("/api/newEvent", function (req, res){
         console.log(req.body); 
-        // db.Events.create({
-        //     eventName: req.body.eventName,
-        //     eventDetails: req.body.eventDetails, 
-        //     eventDate: req.body.eventDate,
-        //     eventMaxPpl: req.body.eventMaxPpl,
-        //     eventLocation: req.body.eventLocation, 
-        //     eventOwner: req.session.user.id
-        // }).then(function(data){
-        //     db.Profile.findOneAndUpdate({ _id: req.session.user.id}, 
-        //              { $push: { myEvents: data._id} }, {new: true}).then(function (eventData){
-        //                  res.json(eventData)
-        //              })      
-        // }).catch(function (err) {
-        //             res.json(err);
-        // }); 
+        db.Events.create({
+            eventName: req.body.eventName,
+            category: req.body.category, 
+            startTime: req.body.startTime,
+            endTime: req.body.endTime,
+            eventMaxPpl: req.body.eventMaxPpl,
+            eventLocation: req.body.eventLocation,
+            private: req.body.private,
+            eventOwner: req.session.user.id
+        }).then(function(data){
+            db.Profile.findOneAndUpdate({ _id: req.session.user.id}, 
+                     { $push: { myEvents: data._id} }, {new: true}).then(function (eventData){
+                         res.json(eventData)
+                     })      
+        }).catch(function (err) {
+                    res.json(err);
+        }); 
     })
 
     //all events from db
